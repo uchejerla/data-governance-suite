@@ -1,5 +1,5 @@
 import { Link, useSearchParams } from 'react-router-dom';
-import { TIERS, TEMPLATES, tierById, bundleForTier, formatPrice } from '../data/catalog.js';
+import { TIERS, TEMPLATES, tierById, bundleForTier, formatPrice, isBuyable, availableTemplates } from '../data/catalog.js';
 import TemplateCard from '../components/TemplateCard.jsx';
 
 export default function Catalog() {
@@ -24,6 +24,15 @@ export default function Catalog() {
         ))}
       </nav>
 
+      {!active && (
+        <section className="tier-block">
+          <div className="tier-block-head"><h2>Available now</h2></div>
+          <div className="card-grid">
+            {availableTemplates().map((x) => <TemplateCard key={x.slug} template={x} />)}
+          </div>
+        </section>
+      )}
+
       {tiers.map((tier) => {
         const items = TEMPLATES.filter((x) => x.tier === tier.id);
         const bundle = bundleForTier(tier.id);
@@ -33,7 +42,7 @@ export default function Catalog() {
               <h2><span className="step-num">Tier {tier.step}</span> {tier.name}</h2>
               {bundle && (
                 <Link className="link-arrow" to={`/bundles/${bundle.slug}`}>
-                  All {items.length} as the {bundle.name}, {formatPrice(bundle.price)}
+                  All {items.length} as the {bundle.name}, {formatPrice(bundle.price)}{isBuyable({ kind: 'bundle', item: bundle }) ? '' : ' (coming soon)'}
                 </Link>
               )}
             </div>

@@ -13,3 +13,5 @@ files/
 .vercel
 __pycache__/
 *.pyc
+
+files-for-upload.zip

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import { decodeAnswers, encodeAnswers, scoreAnswers } from '../lib/scoring.js';
 import { LEVELS } from '../data/assessment.js';
-import { bundleTemplates, bundleListPrice, formatPrice } from '../data/catalog.js';
+import { bundleTemplates, bundleListPrice, formatPrice, isBuyable, templateBuyable } from '../data/catalog.js';
 import RadarChart from '../components/RadarChart.jsx';
 import TemplateCard from '../components/TemplateCard.jsx';
 
@@ -81,9 +81,18 @@ export default function AssessmentResults() {
           <p>{r.bundle.summary} {bundleTemplates(r.bundle).length} templates for {formatPrice(r.bundle.price)} <span className="muted">(list {formatPrice(bundleListPrice(r.bundle))})</span>.</p>
         </div>
         <div className="cta-row">
-          <Link className="btn btn-lg" to={`/bundles/${r.bundle.slug}`}>Get template bundle</Link>
+          <Link className="btn btn-lg" to={`/bundles/${r.bundle.slug}`}>{isBuyable({ kind: 'bundle', item: r.bundle }) ? 'Get template bundle' : 'See the bundle (coming soon)'}</Link>
         </div>
       </section>
+
+      {!isBuyable({ kind: 'bundle', item: r.bundle }) && bundleTemplates(r.bundle).some(templateBuyable) && (
+        <section className="tier-block">
+          <div className="tier-block-head"><h2>Available now from this bundle</h2></div>
+          <div className="card-grid">
+            {bundleTemplates(r.bundle).filter(templateBuyable).map((t) => <TemplateCard key={t.slug} template={t} />)}
+          </div>
+        </section>
+      )}
 
       {r.picks.map(({ dimension, templates }) => (
         <section key={dimension.id} className="tier-block">

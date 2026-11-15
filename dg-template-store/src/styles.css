@@ -371,3 +371,5 @@ body::before { content: ''; position: fixed; inset: 0 0 auto; height: env(safe-a
 .download-list { list-style: none; padding: 0; margin: 16px 0; display: grid; gap: 10px; }
 .download-list li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 6px; flex-wrap: wrap; }
 .download-list .dl-name { font-weight: 500; }
+.soon-tag { margin-left: 8px; font-size: 0.74rem; font-weight: 600; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; vertical-align: middle; }
+.buy-now { margin-top: 14px; }

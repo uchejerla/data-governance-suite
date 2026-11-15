@@ -1,14 +1,13 @@
 import { Link } from 'react-router-dom';
-import { TIERS, TEMPLATES, BUNDLES, templatesInTier, formatPrice, bundleBySlug } from '../data/catalog.js';
+import { TIERS, TEMPLATES, BUNDLES, templatesInTier, formatPrice, bundleBySlug, availableTemplates } from '../data/catalog.js';
 import { DIMENSIONS, QUESTION_COUNT } from '../data/assessment.js';
 import TemplateCard from '../components/TemplateCard.jsx';
 import RadarChart from '../components/RadarChart.jsx';
 
-const FEATURED = ['governance-charter', 'policy-bundle', 'exec-powerbi-dashboard', 'ai-governance-framework'];
 const SAMPLE = [3.4, 2.2, 2.8, 1.8, 2.4, 1.6];
 
 export default function Home() {
-  const featured = FEATURED.map((s) => TEMPLATES.find((t) => t.slug === s));
+  const featured = availableTemplates();
   const suite = bundleBySlug('complete-suite');
   return (
     <>
@@ -63,8 +62,8 @@ export default function Home() {
         <div className="wrap">
           <div className="section-head row-between">
             <div>
-              <h2>Most requested</h2>
-              <p>Open any template to see its contents and a page preview.</p>
+              <h2>Available now</h2>
+              <p>Buy any of these today and download the files straight after paying. The rest are coming soon.</p>
             </div>
             <Link className="link-arrow" to="/templates">All {TEMPLATES.length} templates</Link>
           </div>

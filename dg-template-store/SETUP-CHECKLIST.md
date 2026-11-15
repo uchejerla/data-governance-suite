@@ -5,7 +5,7 @@ Keep a note open to paste four values into: `sk_test_...`, `whsec_...`, your sit
 
 ## A. Vercel project (gives you a site address)
 1. vercel.com → **Add New… → Project** → import this folder's repo (keep the repo **private**), or run `vercel` in the folder.
-2. Framework preset **Vite**, build command `npm run build`, output `dist` → **Deploy**.
+2. **Root Directory: `dg-template-store`** (the app lives in that folder of the GitHub repo). Framework preset **Vite**, build command `npm run build`, output `dist` → **Deploy**.
 3. Copy the production address, e.g. `https://<project>.vercel.app`. Use this one, not a preview address:
    preview addresses sit behind Vercel's login by default, which blocks Stripe's webhook.
    If Stripe later shows `401` on webhook deliveries, check Settings → Deployment Protection.
@@ -33,9 +33,16 @@ Keep a note open to paste four values into: `sk_test_...`, `whsec_...`, your sit
 
 ## D. Upload the paid files (once)
 12. In the project folder: `vercel link`, then `vercel env pull .env.local`.
-13. `npm install`, then `node --env-file=.env.local scripts/upload-files.mjs`.
+13. The paid files are not on GitHub (on purpose). Unzip `files-for-upload.zip` from this project into
+    `dg-template-store/files/` on your machine, then run `npm install` and
+    `node --env-file=.env.local scripts/upload-files.mjs`.
     It should end with `15 files uploaded.` (If it says the token is missing, copy
     `BLOB_READ_WRITE_TOKEN` from the Blob store's page into `.env.local` and run it again.)
+
+## What you should see
+Only the 5 launch templates (Charter, Operating Model Guide, Business Case and ROI, Policy Bundle,
+Glossary Kit) have a **Buy** button. The other 15 templates and all 5 bundles say **Coming soon**
+until their files exist. There is no cart: each Buy is its own checkout.
 
 ## E. Tell Claude it's done
 14. Say "Stripe is set up" in this task. Then we run the test purchase together:
