@@ -1,0 +1,31 @@
+{
+  "name": "dg-template-store",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "DG Template Suite: paid data governance templates and a free maturity assessment.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "check:links": "vite build --ssr src/entry-server.jsx --outDir .ssr && node scripts/crawl.mjs",
+    "build:artifact": "VITE_ROUTER=memory vite build --mode artifact --outDir dist-artifact && node scripts/make-artifact.mjs",
+    "test:flows": "vite build --ssr src/entry-test.jsx --outDir .ssr-test && node scripts/flow-test.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "upload:files": "node scripts/upload-files.mjs"
+  },
+  "dependencies": {
+    "@vercel/blob": "2.8.0",
+    "jspdf": "4.2.1",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.28.0",
+    "stripe": "23.1.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3.4",
+    "jsdom": "^25.0.1",
+    "vite": "6.0.7",
+    "vite-plugin-singlefile": "2.1.0"
+  }
+}
