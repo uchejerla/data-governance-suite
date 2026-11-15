@@ -1,0 +1,15 @@
+node_modules
+dist
+dist-artifact
+.ssr
+.ssr-test
+.ssr-pdf
+# Paid template files: never commit or publish them
+files/
+.env
+.env.local
+.env*.local
+.local-orders
+.vercel
+__pycache__/
+*.pyc

@@ -1,0 +1,6 @@
+# Keep the paid files out of every deployment. They are served only from the
+# private Blob store through /api/download.
+files/
+build-files/
+.local-orders/
+dist-artifact/
