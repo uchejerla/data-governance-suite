@@ -29,8 +29,18 @@ export async function GET(request) {
   }
   if (!check.ok) return page(403, 'This download link is not valid', '<p>Use the link from your order email or order page.</p>');
 
-  const file = await storage().readFile(check.key).catch(() => null);
-  if (!file) return page(404, 'File not found', '<p>Please contact us and we will send it to you.</p>');
+  let file = null;
+  try {
+    file = await storage().readFile(check.key);
+  } catch (err) {
+    // Usually a storage setup problem (no Blob credentials, wrong store). Shows in Vercel's logs.
+    console.error('Download failed: could not read', `products/${check.key}`, err?.message || err);
+    return page(500, 'Download unavailable right now', '<p>Please try again in a few minutes, or contact us and we will send the file to you.</p>');
+  }
+  if (!file) {
+    console.error('Download failed: not found in storage', `products/${check.key}`);
+    return page(404, 'File not found', '<p>Please contact us and we will send it to you.</p>');
+  }
 
   const name = check.key.split('/').pop();
   const ext = name.split('.').pop().toLowerCase();

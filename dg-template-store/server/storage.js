@@ -13,7 +13,8 @@ export class AlreadyExists extends Error {}
 const blobStore = {
   kind: 'blob',
   async readFile(key) {
-    const result = await get(`products/${key}`, { access: 'private' });
+    // useCache: false so a file uploaded after an earlier miss is found straight away.
+    const result = await get(`products/${key}`, { access: 'private', useCache: false });
     if (!result || result.statusCode !== 200) return null;
     return { stream: result.stream, size: result.blob.size };
   },
