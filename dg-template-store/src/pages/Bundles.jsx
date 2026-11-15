@@ -1,5 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
-import { BUNDLES, bundleBySlug, bundleTemplates, bundleListPrice, tierById, formatPrice } from '../data/catalog.js';
+import { BUNDLES, bundleBySlug, bundleTemplates, bundleListPrice, tierById, formatPrice, templateBuyable } from '../data/catalog.js';
+import { checkoutPath } from '../lib/checkout.js';
 import BuyButton from '../components/BuyButton.jsx';
 import NotFound from './NotFound.jsx';
 
@@ -75,7 +76,17 @@ export function BundleDetail() {
           </dl>
           <BuyButton className="btn btn-block" product={{ kind: 'bundle', item: b }} label="Get template bundle" />
           {items.some((x) => !x.fileReady) && (
-            <p className="buy-note">This bundle goes on sale once all {items.length} templates are finished. {items.filter((x) => x.fileReady).length} are available on their own now.</p>
+            <p className="buy-note">This bundle goes on sale once all {items.length} templates are finished.</p>
+          )}
+          {items.some((x) => !x.fileReady) && items.some((x) => templateBuyable(x)) && (
+            <div className="buy-now">
+              <p className="h-sm">Available now on their own</p>
+              <ul className="plain-list">
+                {items.filter((x) => templateBuyable(x)).map((x) => (
+                  <li key={x.slug}><Link to={checkoutPath(x.slug)}>Buy {x.name}, {formatPrice(x.price)}</Link></li>
+                ))}
+              </ul>
+            </div>
           )}
           <Link className="btn btn-ghost btn-block" to="/assessment">Not sure? Take the assessment</Link>
         </aside>

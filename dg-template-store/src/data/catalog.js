@@ -612,3 +612,7 @@ export function deliverableFiles(product) {
     (tpl.files || []).map((f) => ({ key: `${tpl.slug}/${f.name}`, name: f.name, label: f.label, template: tpl.name })),
   );
 }
+
+export const templateBuyable = (tpl) => isBuyable({ kind: 'template', item: tpl });
+// Templates that can be bought today, in catalog order.
+export const availableTemplates = () => TEMPLATES.filter(templateBuyable);

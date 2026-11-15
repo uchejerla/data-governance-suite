@@ -28,17 +28,20 @@ for (let step = 0; step < 6; step++) {
 check('results page shows a level', /Level \d: /.test(text()));
 check('results page shows radar chart', !!$('svg.radar polygon.radar-shape'));
 check('results page has "Download report (PDF)" button', !!byText('button', 'Download report (PDF)'));
-const getBundle = byText('a', 'Get template bundle');
-check('"Get template bundle" button exists on results', !!getBundle);
+const getBundle = byText('a', 'See the bundle (coming soon)');
+check('results link to the recommended bundle, marked coming soon', !!getBundle);
+check('results offer the templates from that bundle that can be bought now', !!byText('h2', 'Available now from this bundle') && !!byText('a', 'Buy'));
 click(getBundle);
-check('"Get template bundle" opens a bundle page', !!byText('h2', 'Included templates') && !text().includes('Page not found'));
+check('bundle link opens a bundle page', !!byText('h2', 'Included templates') && !text().includes('Page not found'));
+check('unfinished bundle page lists templates to buy now', !!byText('p', 'Available now on their own') && !!byText('a', 'Buy '));
 check('unfinished bundle shows "Coming soon" instead of a buy button', !!byText('span', 'Coming soon') && !byText('a', 'Get template bundle'));
 act(() => root.unmount());
 
 // 2. Catalog filter and Preview
 document.body.innerHTML = '<div id="root"></div>';
 root = mount($('#root'), '/templates');
-check('catalog lists 20 templates', document.querySelectorAll('.tcard').length === 20);
+check('catalog lists 20 templates plus the 5 available now', document.querySelectorAll('.tcard').length === 25 && !!byText('h2', 'Available now'));
+check('catalog cards for ready templates have Buy, others say Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 10 && document.querySelectorAll('.soon-tag').length === 15);
 click(byText('a', 'Measurement'));
 check('tier filter narrows to 5', document.querySelectorAll('.tcard').length === 5);
 click(byText('a', 'Preview'));
