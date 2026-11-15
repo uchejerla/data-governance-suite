@@ -9,7 +9,7 @@ import Assessment from './pages/Assessment.jsx';
 import AssessmentResults from './pages/AssessmentResults.jsx';
 import Checkout from './pages/Checkout.jsx';
 import Thanks from './pages/Thanks.jsx';
-import { Terms, Refunds, Privacy, Contact } from './pages/Legal.jsx';
+import { Terms, License, Refunds, Privacy, Contact } from './pages/Legal.jsx';
 import NotFound from './pages/NotFound.jsx';
 
 export default function App() {
@@ -27,6 +27,7 @@ export default function App() {
         <Route path="checkout/:slug" element={<Checkout />} />
         <Route path="thanks" element={<Thanks />} />
         <Route path="terms" element={<Terms />} />
+        <Route path="license" element={<License />} />
         <Route path="refunds" element={<Refunds />} />
         <Route path="privacy" element={<Privacy />} />
         <Route path="contact" element={<Contact />} />

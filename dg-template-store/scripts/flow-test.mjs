@@ -60,6 +60,7 @@ click(byText('a', 'Preview pages'));
 check('ready template preview shows 3 real page images', document.querySelectorAll('.real-page img').length === 3);
 click(byText('a', 'Buy'));
 check('Buy on a ready template opens checkout with a pay button', text().includes('Your order') && !!byText('button', 'Pay $49 with Stripe'));
+check('checkout says paying means agreeing to the terms, license and refund policy', text().includes('By paying you agree to our terms of sale, template license and refund policy') && ['/terms', '/license', '/refunds'].every((h) => document.querySelector(`.legal-agree a[href="${h}"]`)));
 act(() => root.unmount());
 
 // 4. Checkout calls the server and goes to Stripe; cancel and thank-you pages

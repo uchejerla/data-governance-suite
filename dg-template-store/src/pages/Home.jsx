@@ -107,7 +107,7 @@ export default function Home() {
             </div>
             <div>
               <dt>Can I change them for my company?</dt>
-              <dd>Yes. Templates are meant to be edited, branded and shared inside your organization. See the <Link to="/terms">terms of use</Link>.</dd>
+              <dd>Yes. Templates are meant to be edited, branded and shared inside your organization. See the <Link to="/license">template license</Link>.</dd>
             </div>
             <div>
               <dt>How is a template delivered?</dt>
