@@ -48,6 +48,7 @@ document.body.innerHTML = '<div id="root"></div>';
 root = mount($('#root'), '/templates');
 check('catalog lists the 20 templates once, with no separate "Available now" block once most are on sale', document.querySelectorAll('.tcard').length === 20 && !byText('h2', 'Available now'));
 check('catalog cards for ready templates have Buy, others say Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 19 && document.querySelectorAll('.soon-tag').length === 1);
+check('catalog shows no "Draft listing" tags once listings are accepted', document.querySelectorAll('.draft-tag').length === 0);
 click(byText('a', 'Measurement'));
 check('tier filter narrows to 5', document.querySelectorAll('.tcard').length === 5);
 click(byText('a', 'Preview'));

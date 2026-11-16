@@ -2,8 +2,9 @@
 // PRODUCT DATA: the one place to change names, prices, outlines and bundles.
 //
 // source: 'chat'     → name and price came from Uday's June 2026 chat summary.
-// source: 'invented' → drafted for this rebuild; Uday to confirm, rename or drop.
-// Every outline, summary and page count is a DRAFT until Uday reviews it.
+// source: 'accepted' → drafted for the rebuild; Uday accepted name, price and
+//                     contents as they are on Nov 16, 2026.
+// source: 'invented' → a new draft still to review; shows a "Draft listing" tag.
 //
 // Later launch steps hook in here:
 //   fileReady       → set true once the real downloadable file exists. Ready
@@ -151,7 +152,7 @@ export const TEMPLATES = [
     name: 'Roles and RACI Matrix',
     tier: 'foundation',
     price: 39,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 6,
     fileReady: true,
@@ -177,7 +178,7 @@ export const TEMPLATES = [
     name: 'Governance Council Kit',
     tier: 'foundation',
     price: 49,
-    source: 'invented',
+    source: 'accepted',
     format: 'DOCX + XLSX',
     pages: 10,
     fileReady: true,
@@ -270,7 +271,7 @@ export const TEMPLATES = [
     name: 'Data Steward Playbook',
     tier: 'implementation',
     price: 89,
-    source: 'invented',
+    source: 'accepted',
     format: 'DOCX',
     pages: 24,
     fileReady: true,
@@ -297,7 +298,7 @@ export const TEMPLATES = [
     name: 'Data Quality Rules Catalog',
     tier: 'implementation',
     price: 99,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 8,
     fileReady: true,
@@ -323,7 +324,7 @@ export const TEMPLATES = [
     name: 'Metadata Onboarding Kit',
     tier: 'implementation',
     price: 89,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX + DOCX',
     pages: 14,
     fileReady: true,
@@ -376,7 +377,7 @@ export const TEMPLATES = [
     name: 'Governance KPI Library',
     tier: 'measurement',
     price: 79,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 6,
     fileReady: true,
@@ -402,7 +403,7 @@ export const TEMPLATES = [
     name: 'Data Quality Scorecard',
     tier: 'measurement',
     price: 99,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX + PPTX',
     pages: 7,
     fileReady: true,
@@ -429,7 +430,7 @@ export const TEMPLATES = [
     name: 'Maturity Assessment Workbook',
     tier: 'measurement',
     price: 59,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 6,
     fileReady: true,
@@ -455,7 +456,7 @@ export const TEMPLATES = [
     name: 'Data Issue and Exception Log',
     tier: 'measurement',
     price: 49,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 4,
     fileReady: true,
@@ -512,7 +513,7 @@ export const TEMPLATES = [
     name: 'Master Data Management Playbook',
     tier: 'advanced',
     price: 149,
-    source: 'invented',
+    source: 'accepted',
     format: 'DOCX + XLSX',
     pages: 30,
     fileReady: true,
@@ -540,7 +541,7 @@ export const TEMPLATES = [
     name: 'Data Privacy and Classification Kit',
     tier: 'advanced',
     price: 129,
-    source: 'invented',
+    source: 'accepted',
     format: 'DOCX + XLSX',
     pages: 20,
     fileReady: true,
@@ -567,7 +568,7 @@ export const TEMPLATES = [
     name: 'Data Lineage Documentation Kit',
     tier: 'advanced',
     price: 99,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX + DOCX',
     pages: 12,
     fileReady: true,
@@ -594,7 +595,7 @@ export const TEMPLATES = [
     name: 'Regulatory Mapping Pack',
     tier: 'advanced',
     price: 149,
-    source: 'invented',
+    source: 'accepted',
     format: 'XLSX',
     pages: 9,
     fileReady: true,
