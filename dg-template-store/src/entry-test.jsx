@@ -10,3 +10,5 @@ export function mount(container, url) {
   return root;
 }
 export { act };
+// Lets the flow test mark a template as not ready, to check the coming-soon pages.
+export { TEMPLATES } from './data/catalog.js';

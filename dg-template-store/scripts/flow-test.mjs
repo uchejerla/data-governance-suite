@@ -7,7 +7,11 @@ Object.assign(globalThis, { window: dom.window, document: dom.window.document, H
 globalThis.IS_REACT_ACT_ENVIRONMENT = true;
 window.scrollTo = () => {};
 
-const { mount, act } = await import('../.ssr-test/entry-test.js');
+const { mount, act, TEMPLATES } = await import('../.ssr-test/entry-test.js');
+// Every template has files now. To check the coming-soon pages, mark one as not ready for a while.
+const dash = TEMPLATES.find((t) => t.slug === 'exec-powerbi-dashboard');
+const dashSaved = { fileReady: dash.fileReady, files: dash.files };
+const notReady = (on) => Object.assign(dash, on ? { fileReady: false, files: undefined } : dashSaved);
 const $ = (sel) => document.querySelector(sel);
 const text = () => document.body.textContent;
 const byText = (tag, t) => [...document.querySelectorAll(tag)].find((el) => el.textContent.trim().startsWith(t));
@@ -36,27 +40,44 @@ check('bundle link opens a bundle page', !!byText('h2', 'Included templates') &&
 check('ready bundle page has a buy button', !!byText('a', 'Get template bundle'));
 act(() => root.unmount());
 
-// 1b. A bundle that is not finished yet (Measurement waits on the Power BI dashboard)
+// 1b. A bundle with a template that is not ready
+notReady(true);
 document.body.innerHTML = '<div id="root"></div>';
 root = mount($('#root'), '/bundles/measurement-bundle');
 check('unfinished bundle page lists templates to buy now', !!byText('p', 'Available now on their own') && !!byText('a', 'Buy '));
 check('unfinished bundle shows "Coming soon" instead of a buy button', !!byText('span', 'Coming soon') && !byText('a', 'Get template bundle'));
 act(() => root.unmount());
+notReady(false);
+
+// 1c. Every bundle sells now, the Complete Suite included
+for (const slug of ['measurement-bundle', 'complete-suite']) {
+  document.body.innerHTML = '<div id="root"></div>';
+  root = mount($('#root'), `/bundles/${slug}`);
+  check(`${slug} page has a buy button`, !!byText('a', 'Get template bundle') && !byText('span', 'Coming soon'));
+  act(() => root.unmount());
+}
 
 // 2. Catalog filter and Preview
 document.body.innerHTML = '<div id="root"></div>';
 root = mount($('#root'), '/templates');
 check('catalog lists the 20 templates once, with no separate "Available now" block once most are on sale', document.querySelectorAll('.tcard').length === 20 && !byText('h2', 'Available now'));
-check('catalog cards for ready templates have Buy, others say Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 19 && document.querySelectorAll('.soon-tag').length === 1);
+check('every catalog card has Buy and none says Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 20 && document.querySelectorAll('.soon-tag').length === 0);
 check('catalog shows no "Draft listing" tags once listings are accepted', document.querySelectorAll('.draft-tag').length === 0);
 click(byText('a', 'Measurement'));
 check('tier filter narrows to 5', document.querySelectorAll('.tcard').length === 5);
+act(() => root.unmount());
+
+// 2b. A template without files: drafted preview and Coming soon
+notReady(true);
+document.body.innerHTML = '<div id="root"></div>';
+root = mount($('#root'), '/templates?tier=measurement');
 click(byText('a', 'Preview'));
 check('Preview opens a preview page', text().includes('PREVIEW') && text().includes('Contents'));
 click(byText('a', 'Back to details'));
 check('Back to details opens the detail page', !!byText('h2', 'What is inside'));
 check('template without files shows "Coming soon", not Buy', !!document.querySelector('.buy-box .btn-soon') && !document.querySelector('.buy-box a[href^="/checkout/"]'));
 act(() => root.unmount());
+notReady(false);
 
 // 3. A launch template with real files
 document.body.innerHTML = '<div id="root"></div>';
@@ -102,8 +123,15 @@ check('cancelled checkout says nothing was charged', text().includes('Payment ca
 act(() => root.unmount());
 
 document.body.innerHTML = '<div id="root"></div>';
+notReady(true);
 root = mount($('#root'), '/checkout/measurement-bundle');
 check('checkout for an unfinished bundle shows Coming soon and no pay button', text().includes('Coming soon') && !byText('button', 'Pay'));
+act(() => root.unmount());
+notReady(false);
+
+document.body.innerHTML = '<div id="root"></div>';
+root = mount($('#root'), '/checkout/complete-suite');
+check('checkout for the Complete Suite shows a $999 pay button', !!byText('button', 'Pay $999 with Stripe'));
 act(() => root.unmount());
 
 document.body.innerHTML = '<div id="root"></div>';
