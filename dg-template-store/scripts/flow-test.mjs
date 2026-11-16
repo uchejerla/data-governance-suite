@@ -28,11 +28,17 @@ for (let step = 0; step < 6; step++) {
 check('results page shows a level', /Level \d: /.test(text()));
 check('results page shows radar chart', !!$('svg.radar polygon.radar-shape'));
 check('results page has "Download report (PDF)" button', !!byText('button', 'Download report (PDF)'));
-const getBundle = byText('a', 'See the bundle (coming soon)');
-check('results link to the recommended bundle, marked coming soon', !!getBundle);
-check('results offer the templates from that bundle that can be bought now', !!byText('h2', 'Available now from this bundle') && !!byText('a', 'Buy'));
+const getBundle = byText('a', 'Get template bundle');
+check('results link to the recommended bundle, which is on sale', !!getBundle && !byText('a', 'See the bundle (coming soon)'));
+check('results skip "Available now from this bundle" when the whole bundle is on sale', !byText('h2', 'Available now from this bundle'));
 click(getBundle);
 check('bundle link opens a bundle page', !!byText('h2', 'Included templates') && !text().includes('Page not found'));
+check('ready bundle page has a buy button', !!byText('a', 'Get template bundle'));
+act(() => root.unmount());
+
+// 1b. A bundle that is not finished yet (Measurement waits on the Power BI dashboard)
+document.body.innerHTML = '<div id="root"></div>';
+root = mount($('#root'), '/bundles/measurement-bundle');
 check('unfinished bundle page lists templates to buy now', !!byText('p', 'Available now on their own') && !!byText('a', 'Buy '));
 check('unfinished bundle shows "Coming soon" instead of a buy button', !!byText('span', 'Coming soon') && !byText('a', 'Get template bundle'));
 act(() => root.unmount());
@@ -40,15 +46,15 @@ act(() => root.unmount());
 // 2. Catalog filter and Preview
 document.body.innerHTML = '<div id="root"></div>';
 root = mount($('#root'), '/templates');
-check('catalog lists 20 templates plus the 5 available now', document.querySelectorAll('.tcard').length === 25 && !!byText('h2', 'Available now'));
-check('catalog cards for ready templates have Buy, others say Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 10 && document.querySelectorAll('.soon-tag').length === 15);
+check('catalog lists the 20 templates once, with no separate "Available now" block once most are on sale', document.querySelectorAll('.tcard').length === 20 && !byText('h2', 'Available now'));
+check('catalog cards for ready templates have Buy, others say Coming soon', document.querySelectorAll('.tcard a.btn[href^="/checkout/"]').length === 19 && document.querySelectorAll('.soon-tag').length === 1);
 click(byText('a', 'Measurement'));
 check('tier filter narrows to 5', document.querySelectorAll('.tcard').length === 5);
 click(byText('a', 'Preview'));
 check('Preview opens a preview page', text().includes('PREVIEW') && text().includes('Contents'));
 click(byText('a', 'Back to details'));
 check('Back to details opens the detail page', !!byText('h2', 'What is inside'));
-check('template without files shows "Coming soon", not Buy', !!byText('span', 'Coming soon') && !byText('a', 'Buy'));
+check('template without files shows "Coming soon", not Buy', !!document.querySelector('.buy-box .btn-soon') && !document.querySelector('.buy-box a[href^="/checkout/"]'));
 act(() => root.unmount());
 
 // 3. A launch template with real files
@@ -95,7 +101,7 @@ check('cancelled checkout says nothing was charged', text().includes('Payment ca
 act(() => root.unmount());
 
 document.body.innerHTML = '<div id="root"></div>';
-root = mount($('#root'), '/checkout/foundation-bundle');
+root = mount($('#root'), '/checkout/measurement-bundle');
 check('checkout for an unfinished bundle shows Coming soon and no pay button', text().includes('Coming soon') && !byText('button', 'Pay'));
 act(() => root.unmount());
 

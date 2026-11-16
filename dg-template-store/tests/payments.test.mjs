@@ -127,7 +127,7 @@ test('checkout: every launch template can be bought at its listed price', async 
 });
 
 test('checkout: coming-soon templates and unfinished bundles are refused', async () => {
-  for (const slug of ['roles-raci-matrix', 'exec-powerbi-dashboard', 'foundation-bundle', 'complete-suite', 'no-such-thing', '../etc/passwd']) {
+  for (const slug of ['exec-powerbi-dashboard', 'measurement-bundle', 'complete-suite', 'no-such-thing', '../etc/passwd']) {
     const res = await checkout.POST(post({ slug }));
     assert.equal(res.status, 404, slug);
   }
@@ -321,26 +321,27 @@ test('download: files are not in the public folder or the static build', async (
 
 // ── Bundles ──────────────────────────────────────────────────────────────────
 test('bundles: a bundle sells only when all its templates are ready, and delivers all their files', async () => {
-  assert.equal(sellable('foundation-bundle'), null);
-  const foundation = TEMPLATES.filter((t) => t.tier === 'foundation');
-  const saved = foundation.map((t) => ({ t, fileReady: t.fileReady, files: t.files }));
-  for (const t of foundation) if (!t.fileReady) Object.assign(t, { fileReady: true, files: [{ name: `${t.slug}.docx`, label: t.name, size: '1 page' }] });
+  for (const slug of ['foundation-bundle', 'implementation-bundle', 'advanced-bundle']) assert.ok(sellable(slug), slug);
+  assert.equal(sellable('measurement-bundle'), null);
+  const measurement = TEMPLATES.filter((t) => t.tier === 'measurement');
+  const saved = measurement.map((t) => ({ t, fileReady: t.fileReady, files: t.files }));
+  for (const t of measurement) if (!t.fileReady) Object.assign(t, { fileReady: true, files: [{ name: `${t.slug}.docx`, label: t.name, size: '1 page' }] });
   try {
-    const b = sellable('foundation-bundle');
+    const b = sellable('measurement-bundle');
     assert.ok(b);
     assert.equal(b.kind, 'bundle');
-    assert.equal(b.amountCents, 21900);
-    const expectedFiles = foundation.reduce((n, t) => n + t.files.length, 0);
+    assert.equal(b.amountCents, 33900);
+    const expectedFiles = measurement.reduce((n, t) => n + t.files.length, 0);
     assert.equal(b.files.length, expectedFiles);
 
-    const s = paidSession('foundation-bundle');
+    const s = paidSession('measurement-bundle');
     sessions.set(s.id, s);
     await webhook.POST(signedEvent('checkout.session.completed', s));
     assert.equal(orders.get(s.id).files.length, expectedFiles);
     const data = await (await getOrder(s.id)).json();
     assert.equal(data.links.length, expectedFiles);
     const slugs = new Set(data.links.map((l) => readToken(tokenFromUrl(l.url), secret()).key.split('/')[0]));
-    assert.deepEqual([...slugs].sort(), foundation.map((t) => t.slug).sort());
+    assert.deepEqual([...slugs].sort(), measurement.map((t) => t.slug).sort());
   } finally {
     for (const { t, fileReady, files } of saved) Object.assign(t, { fileReady, files });
   }

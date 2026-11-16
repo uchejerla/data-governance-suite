@@ -154,6 +154,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 6,
+    fileReady: true,
+    length: '6-sheet workbook',
     summary:
       'Role descriptions for owners, stewards and custodians, plus a RACI across the governance activities that matter.',
     audience: 'Governance lead, HR partner, domain owners',
@@ -164,7 +166,11 @@ export const TEMPLATES = [
       'Domain assignment sheet',
       'Role nomination email template',
     ],
-    includes: ['RACI workbook (XLSX)'],
+    includes: ['RACI workbook with role definitions, time commitment and nomination email (XLSX, 6 sheets)'],
+    previews: ['Role definitions', 'RACI across 30 governance activities', 'Time commitment by role'],
+    files: [
+      { name: 'Roles-and-RACI-Matrix.xlsx', label: 'Roles and RACI workbook', size: '6 sheets' },
+    ],
   }),
   t({
     slug: 'council-kit',
@@ -174,6 +180,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'DOCX + XLSX',
     pages: 10,
+    fileReady: true,
+    length: '11-page kit and an 8-sheet log',
     summary:
       'Everything to run a governance council that decides things: agenda, minutes, decision log and an action tracker.',
     audience: 'Council chair, governance program manager',
@@ -184,7 +192,12 @@ export const TEMPLATES = [
       'Decision log with rationale fields',
       'Action and escalation tracker',
     ],
-    includes: ['Council documents (DOCX)', 'Decision and action log (XLSX)'],
+    includes: ['Council kit: terms of reference, agenda, minutes and decision paper templates (DOCX, 11 pages)', 'Decision, action and escalation log (XLSX, 8 sheets)'],
+    previews: ['Council kit cover', 'Standing agenda and meeting notice', 'Decision log'],
+    files: [
+      { name: 'Governance-Council-Kit.docx', label: 'Council kit: terms of reference, agenda, minutes, decision paper', size: '11 pages' },
+      { name: 'Council-Decision-and-Action-Log.xlsx', label: 'Decision, action and escalation log', size: '8 sheets' },
+    ],
   }),
 
   // ── Implementation ─────────────────────────────────────────────────────────
@@ -260,6 +273,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'DOCX',
     pages: 24,
+    fileReady: true,
+    length: '17 pages',
     summary:
       'A practical handbook for new stewards: what to do in week one, month one and every quarter.',
     audience: 'New and existing data stewards, steward managers',
@@ -271,7 +286,11 @@ export const TEMPLATES = [
       'Working with IT and data engineering',
       'Steward self-assessment',
     ],
-    includes: ['Playbook (DOCX)'],
+    includes: ['Playbook (DOCX, 17 pages)'],
+    previews: ['Playbook cover', 'Your first 30 days', 'Monthly and quarterly routines'],
+    files: [
+      { name: 'Data-Steward-Playbook.docx', label: 'Data steward playbook', size: '17 pages' },
+    ],
   }),
   t({
     slug: 'dq-rules-catalog',
@@ -281,6 +300,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 8,
+    fileReady: true,
+    length: '8-sheet workbook with 80 sample rules',
     summary:
       'A structured catalog for documenting quality rules by dimension, with 80 sample rules for policy, claims and party data.',
     audience: 'Data quality analysts, stewards, data engineers',
@@ -291,7 +312,11 @@ export const TEMPLATES = [
       'Threshold-setting worksheet',
       'Rule change log',
     ],
-    includes: ['Rules catalog (XLSX)'],
+    includes: ['Rules catalog with 80 sample rules (XLSX, 8 sheets)'],
+    previews: ['Rules catalog', 'Six data quality dimensions', 'Threshold-setting worksheet'],
+    files: [
+      { name: 'Data-Quality-Rules-Catalog.xlsx', label: 'Rules catalog with 80 sample rules', size: '8 sheets' },
+    ],
   }),
   t({
     slug: 'metadata-onboarding-kit',
@@ -301,6 +326,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX + DOCX',
     pages: 14,
+    fileReady: true,
+    length: '9-page runbook and a 7-sheet workbook',
     summary:
       'Onboard data sources to your catalog in a repeatable way: intake form, minimum metadata and certification steps.',
     audience: 'Catalog administrator, stewards, platform team',
@@ -311,7 +338,12 @@ export const TEMPLATES = [
       'Onboarding runbook',
       'Catalog coverage tracker',
     ],
-    includes: ['Intake and tracker workbook (XLSX)', 'Onboarding runbook (DOCX)'],
+    includes: ['Intake and tracker workbook (XLSX, 7 sheets)', 'Onboarding runbook (DOCX, 9 pages)'],
+    previews: ['Runbook cover', 'Runbook: minimum viable metadata', 'Tracker: catalog coverage summary'],
+    files: [
+      { name: 'Metadata-Onboarding-Runbook.docx', label: 'Onboarding runbook', size: '9 pages' },
+      { name: 'Metadata-Intake-and-Tracker.xlsx', label: 'Intake questionnaire, tracker and certification checklist', size: '7 sheets' },
+    ],
   }),
 
   // ── Measurement ────────────────────────────────────────────────────────────
@@ -335,6 +367,9 @@ export const TEMPLATES = [
       'Sample data workbook and connection guide',
     ],
     includes: ['Power BI report (PBIX)', 'Sample data model (XLSX)', 'Setup guide (PDF)'],
+    // Not for sale yet. A build kit exists in files/exec-powerbi-dashboard/ (sample data model,
+    // DAX measures, theme, 12-page setup guide) but no PBIX: Uday to build it or relist as a kit.
+    previews: ['Program health page', 'Data quality page', 'Issues page'],
   }),
   t({
     slug: 'kpi-library',
@@ -344,6 +379,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 6,
+    fileReady: true,
+    length: '6-sheet workbook with 45 KPIs',
     summary:
       '45 defined governance and quality KPIs with formulas, data sources, targets and who owns each one.',
     audience: 'Governance lead, data quality lead, analysts',
@@ -354,7 +391,11 @@ export const TEMPLATES = [
       'Data source mapping',
       'KPI ownership sheet',
     ],
-    includes: ['KPI library (XLSX)'],
+    includes: ['KPI library with 45 KPIs (XLSX, 6 sheets)'],
+    previews: ['KPI library', 'Your KPIs, owners and targets', 'Leading and lagging KPIs'],
+    files: [
+      { name: 'Governance-KPI-Library.xlsx', label: 'KPI library with 45 KPIs', size: '6 sheets' },
+    ],
   }),
   t({
     slug: 'dq-scorecard',
@@ -364,6 +405,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX + PPTX',
     pages: 7,
+    fileReady: true,
+    length: '8-sheet workbook and 4 council slides',
     summary:
       'A domain-level quality scorecard with weighted dimensions and a monthly slide for the governance council.',
     audience: 'Data quality lead, domain owners, council',
@@ -374,7 +417,12 @@ export const TEMPLATES = [
       'Trend tracking sheet',
       'Monthly council slide',
     ],
-    includes: ['Scorecard workbook (XLSX)', 'Council slide (PPTX)'],
+    includes: ['Scorecard workbook (XLSX, 8 sheets)', 'Council slides (PPTX, 4 slides)'],
+    previews: ['Scorecard by domain and dimension', 'Monthly council slide', 'Setup: weights and thresholds'],
+    files: [
+      { name: 'Data-Quality-Scorecard.xlsx', label: 'Scorecard workbook', size: '8 sheets' },
+      { name: 'DQ-Scorecard-Council-Slides.pptx', label: 'Monthly council slides', size: '4 slides' },
+    ],
   }),
   t({
     slug: 'maturity-workbook',
@@ -384,6 +432,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 6,
+    fileReady: true,
+    length: '7-sheet workbook',
     summary:
       'The full version of the free assessment as a workbook, so you can survey many teams and compare results over time.',
     audience: 'Governance lead, consultants, internal audit',
@@ -394,7 +444,11 @@ export const TEMPLATES = [
       'Radar and trend charts',
       'Target-state planning sheet',
     ],
-    includes: ['Assessment workbook (XLSX)'],
+    includes: ['Assessment workbook (XLSX, 7 sheets)'],
+    previews: ['Results with radar chart', 'Questions and scoring guidance', 'Target-state plan'],
+    files: [
+      { name: 'Maturity-Assessment-Workbook.xlsx', label: 'Maturity assessment workbook', size: '7 sheets' },
+    ],
   }),
   t({
     slug: 'issue-log',
@@ -404,6 +458,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 4,
+    fileReady: true,
+    length: '6-sheet workbook',
     summary:
       'Track data issues from report to resolution, with severity, root cause and aging built in.',
     audience: 'Stewards, data quality analysts, support teams',
@@ -414,7 +470,11 @@ export const TEMPLATES = [
       'Aging and SLA tracking',
       'Monthly summary view',
     ],
-    includes: ['Issue log (XLSX)'],
+    includes: ['Issue log (XLSX, 6 sheets)'],
+    previews: ['Issue log', 'Monthly summary', 'Severity, priority and SLA matrix'],
+    files: [
+      { name: 'Data-Issue-and-Exception-Log.xlsx', label: 'Data issue and exception log', size: '6 sheets' },
+    ],
   }),
 
   // ── Advanced ───────────────────────────────────────────────────────────────
@@ -426,6 +486,8 @@ export const TEMPLATES = [
     source: 'chat',
     format: 'DOCX + XLSX',
     pages: 32,
+    fileReady: true,
+    length: '15-page framework and a 10-sheet register',
     summary:
       'Extend data governance to AI and machine learning: use-case intake, risk tiers, model inventory and review gates.',
     audience: 'CDO, AI or ML leads, risk and compliance',
@@ -438,7 +500,12 @@ export const TEMPLATES = [
       'Monitoring and incident handling',
       'Mapping to common AI regulations and frameworks',
     ],
-    includes: ['Framework (DOCX)', 'AI inventory and risk register (XLSX)'],
+    includes: ['Framework (DOCX, 15 pages)', 'AI inventory and risk register (XLSX, 10 sheets)'],
+    previews: ['Framework cover', 'Risk tiering and the AI system inventory', 'Register: risk tiering calculator'],
+    files: [
+      { name: 'AI-Governance-Framework.docx', label: 'AI governance framework', size: '15 pages' },
+      { name: 'AI-Inventory-and-Risk-Register.xlsx', label: 'AI inventory and risk register', size: '10 sheets' },
+    ],
   }),
   t({
     slug: 'mdm-playbook',
@@ -448,6 +515,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'DOCX + XLSX',
     pages: 30,
+    fileReady: true,
+    length: '12-page playbook and a 10-sheet workbook',
     summary:
       'Plan and govern an MDM program domain by domain: match rules, survivorship, stewardship workflows and rollout.',
     audience: 'MDM lead, domain owners, data architects',
@@ -459,7 +528,12 @@ export const TEMPLATES = [
       'Stewardship workflows and queues',
       'Rollout plan per domain',
     ],
-    includes: ['Playbook (DOCX)', 'Match, merge and survivorship workbook (XLSX)'],
+    includes: ['Playbook (DOCX, 12 pages)', 'Match, merge and survivorship workbook (XLSX, 10 sheets)'],
+    previews: ['Playbook cover', 'Match rules and testing', 'Workbook: match test worksheet'],
+    files: [
+      { name: 'Master-Data-Management-Playbook.docx', label: 'MDM playbook', size: '12 pages' },
+      { name: 'Match-Merge-and-Survivorship-Workbook.xlsx', label: 'Match, merge and survivorship workbook', size: '10 sheets' },
+    ],
   }),
   t({
     slug: 'privacy-classification-kit',
@@ -469,6 +543,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'DOCX + XLSX',
     pages: 20,
+    fileReady: true,
+    length: '12-page standard and a 7-sheet catalog',
     summary:
       'Classify sensitive data consistently and tie each class to handling rules: masking, access and retention.',
     audience: 'Privacy office, security, governance lead',
@@ -479,7 +555,12 @@ export const TEMPLATES = [
       'Classification review workflow',
       'Privacy impact screening questions',
     ],
-    includes: ['Classification standard (DOCX)', 'Sensitive data catalog (XLSX)'],
+    includes: ['Classification and privacy standard (DOCX, 12 pages)', 'Sensitive data catalog with 54 elements (XLSX, 7 sheets)'],
+    previews: ['Standard cover', 'Handling rules by class', 'Sensitive data element catalog'],
+    files: [
+      { name: 'Data-Classification-and-Privacy-Standard.docx', label: 'Classification and privacy standard', size: '12 pages' },
+      { name: 'Sensitive-Data-Catalog.xlsx', label: 'Sensitive data catalog, dataset register and privacy screening', size: '7 sheets' },
+    ],
   }),
   t({
     slug: 'lineage-kit',
@@ -489,6 +570,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX + DOCX',
     pages: 12,
+    fileReady: true,
+    length: '8-page standard and a 7-sheet workbook',
     summary:
       'Document lineage for critical data elements, even before you buy a lineage tool, and keep it current.',
     audience: 'Data architects, stewards, regulatory reporting teams',
@@ -499,7 +582,12 @@ export const TEMPLATES = [
       'Lineage review cadence',
       'Tool readiness checklist',
     ],
-    includes: ['Lineage workbook (XLSX)', 'Lineage standard (DOCX)'],
+    includes: ['Lineage workbook (XLSX, 7 sheets)', 'Lineage standard (DOCX, 8 pages)'],
+    previews: ['Standard cover', 'Worked example: paid losses', 'Workbook: lineage register'],
+    files: [
+      { name: 'Data-Lineage-Standard.docx', label: 'Data lineage standard', size: '8 pages' },
+      { name: 'Data-Lineage-Workbook.xlsx', label: 'Lineage workbook', size: '7 sheets' },
+    ],
   }),
   t({
     slug: 'regulatory-mapping-pack',
@@ -509,6 +597,8 @@ export const TEMPLATES = [
     source: 'invented',
     format: 'XLSX',
     pages: 9,
+    fileReady: true,
+    length: '8-sheet workbook with 26 starter requirements',
     summary:
       'Map regulatory data requirements to your data elements, owners and controls, starting with insurance and financial services.',
     audience: 'Compliance, regulatory reporting, governance lead',
@@ -519,7 +609,11 @@ export const TEMPLATES = [
       'Gap tracking',
       'Starter mappings for insurance and financial services',
     ],
-    includes: ['Mapping workbook (XLSX)'],
+    includes: ['Mapping workbook with 26 starter requirements (XLSX, 8 sheets)'],
+    previews: ['Regulatory data dashboard', 'Starter library of requirements', 'Control and evidence register'],
+    files: [
+      { name: 'Regulatory-Mapping-Workbook.xlsx', label: 'Regulatory mapping workbook', size: '8 sheets' },
+    ],
   }),
 ];
 
