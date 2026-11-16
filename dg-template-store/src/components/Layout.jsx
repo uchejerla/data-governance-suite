@@ -75,7 +75,7 @@ export default function Layout() {
             </ul>
           </div>
         </div>
-        <div className="wrap footer-base">© 2026 DG Template Suite. Draft site, not yet open for purchases.</div>
+        <div className="wrap footer-base">© 2026 DG Template Suite. All rights reserved.</div>
       </footer>
     </>
   );

@@ -50,7 +50,7 @@ export default function Checkout() {
       </div>
       {buyable ? (
         <>
-          <p className="muted">You get {deliverableFiles(product).length} files. Pay securely on Stripe; your download links appear right after payment and arrive by email.</p>
+          <p className="muted">You get {deliverableFiles(product).length} {deliverableFiles(product).length === 1 ? 'file' : 'files'}. Pay securely on Stripe; your download links appear right after payment and arrive by email.</p>
           {!CHECKOUT_LIVE && <p className="notice">Checkout is turned off in this preview. It works on the live site.</p>}
           <p className="muted legal-agree">By paying you agree to our <Link to="/terms">terms of sale</Link>, <Link to="/license">template license</Link> and <Link to="/refunds">refund policy</Link>.</p>
           {error && <p className="notice notice-warn" role="alert">{error}</p>}
