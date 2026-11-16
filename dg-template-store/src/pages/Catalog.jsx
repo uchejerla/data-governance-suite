@@ -24,7 +24,8 @@ export default function Catalog() {
         ))}
       </nav>
 
-      {!active && (
+      {/* Only worth a separate block while most templates are still coming soon. */}
+      {!active && availableTemplates().length * 2 < TEMPLATES.length && (
         <section className="tier-block">
           <div className="tier-block-head"><h2>Available now</h2></div>
           <div className="card-grid">

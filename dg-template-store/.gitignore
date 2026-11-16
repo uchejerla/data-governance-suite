@@ -15,3 +15,5 @@ __pycache__/
 *.pyc
 
 files-for-upload.zip
+files-*.zip
+build-files/

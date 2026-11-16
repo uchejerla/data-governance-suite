@@ -7,7 +7,10 @@ import RadarChart from '../components/RadarChart.jsx';
 const SAMPLE = [3.4, 2.2, 2.8, 1.8, 2.4, 1.6];
 
 export default function Home() {
-  const featured = availableTemplates();
+  const available = availableTemplates();
+  const comingSoon = TEMPLATES.length - available.length;
+  // Show at most six, so the home page stays short once most templates are on sale.
+  const featured = available.slice(0, 6);
   const suite = bundleBySlug('complete-suite');
   return (
     <>
@@ -63,7 +66,10 @@ export default function Home() {
           <div className="section-head row-between">
             <div>
               <h2>Available now</h2>
-              <p>Buy any of these today and download the files straight after paying. The rest are coming soon.</p>
+              <p>
+                Buy any of these today and download the files straight after paying.
+                {comingSoon > 0 && (comingSoon === 1 ? ' One more is coming soon.' : ` ${comingSoon} more are coming soon.`)}
+              </p>
             </div>
             <Link className="link-arrow" to="/templates">All {TEMPLATES.length} templates</Link>
           </div>
