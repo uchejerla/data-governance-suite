@@ -31,7 +31,7 @@ while (queue.length) {
   for (const m of html.matchAll(/<a\b[^>]*?href="([^"]*)"/g)) {
     const href = m[1].replace(/&amp;/g, '&');
     if (!href || href === '#') { problems.push(`EMPTY LINK on ${url}`); continue; }
-    if (/^https?:/.test(href)) { external.add(href); continue; }
+    if (/^(https?|mailto):/.test(href)) { external.add(href); continue; }
     if (href.startsWith('/')) {
       const clean = href.split('#')[0];
       if (!seen.has(clean)) queue.push({ url: clean, from: url });
