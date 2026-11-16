@@ -1,12 +1,12 @@
 // Details used on the terms, licence, refund, privacy and contact pages.
-// Fill in every value in [brackets] before launch. Each one appears on the live pages.
+// Each value appears on the live pages.
 export const LEGAL = {
   // Legal name of whoever sells the templates: your own name, or your LLC's name.
-  seller: '[Business name]',
+  seller: 'Data Governance Suite',
   // Where buyers write for help, refunds and privacy requests.
-  supportEmail: '[support email]',
+  supportEmail: 'marketplace.agenthive@gmail.com',
   // The day these pages take effect, for example 'December 1, 2026'.
-  effective: '[effective date]',
+  effective: 'November 16, 2026',
 
   // Choices with suggested defaults. Change any of them here.
   state: 'Texas',
