@@ -127,11 +127,19 @@ test('checkout: every launch template can be bought at its listed price', async 
 });
 
 test('checkout: coming-soon templates and unfinished bundles are refused', async () => {
-  for (const slug of ['exec-powerbi-dashboard', 'measurement-bundle', 'complete-suite', 'no-such-thing', '../etc/passwd']) {
-    const res = await checkout.POST(post({ slug }));
-    assert.equal(res.status, 404, slug);
+  // Every template has files now, so mark one as not ready for this test.
+  const dash = TEMPLATES.find((t) => t.slug === 'exec-powerbi-dashboard');
+  const saved = { fileReady: dash.fileReady, files: dash.files };
+  Object.assign(dash, { fileReady: false, files: undefined });
+  try {
+    for (const slug of ['exec-powerbi-dashboard', 'measurement-bundle', 'complete-suite', 'no-such-thing', '../etc/passwd']) {
+      const res = await checkout.POST(post({ slug }));
+      assert.equal(res.status, 404, slug);
+    }
+    assert.equal(created.length, 0);
+  } finally {
+    Object.assign(dash, saved);
   }
-  assert.equal(created.length, 0);
 });
 
 test('checkout: bad JSON is refused and missing keys give 503', async () => {
@@ -321,28 +329,34 @@ test('download: files are not in the public folder or the static build', async (
 
 // ── Bundles ──────────────────────────────────────────────────────────────────
 test('bundles: a bundle sells only when all its templates are ready, and delivers all their files', async () => {
-  for (const slug of ['foundation-bundle', 'implementation-bundle', 'advanced-bundle']) assert.ok(sellable(slug), slug);
-  assert.equal(sellable('measurement-bundle'), null);
-  const measurement = TEMPLATES.filter((t) => t.tier === 'measurement');
-  const saved = measurement.map((t) => ({ t, fileReady: t.fileReady, files: t.files }));
-  for (const t of measurement) if (!t.fileReady) Object.assign(t, { fileReady: true, files: [{ name: `${t.slug}.docx`, label: t.name, size: '1 page' }] });
+  for (const slug of ['foundation-bundle', 'implementation-bundle', 'measurement-bundle', 'advanced-bundle', 'complete-suite']) assert.ok(sellable(slug), slug);
+  const dash = TEMPLATES.find((t) => t.slug === 'exec-powerbi-dashboard');
+  const saved = { fileReady: dash.fileReady, files: dash.files };
+  Object.assign(dash, { fileReady: false });
   try {
-    const b = sellable('measurement-bundle');
-    assert.ok(b);
-    assert.equal(b.kind, 'bundle');
-    assert.equal(b.amountCents, 33900);
-    const expectedFiles = measurement.reduce((n, t) => n + t.files.length, 0);
-    assert.equal(b.files.length, expectedFiles);
+    assert.equal(sellable('measurement-bundle'), null);
+    assert.equal(sellable('complete-suite'), null);
+  } finally {
+    Object.assign(dash, saved);
+  }
 
-    const s = paidSession('measurement-bundle');
+  for (const [slug, cents, templates] of [
+    ['measurement-bundle', 33900, TEMPLATES.filter((t) => t.tier === 'measurement')],
+    ['complete-suite', 99900, TEMPLATES],
+  ]) {
+    const b = sellable(slug);
+    assert.equal(b.kind, 'bundle');
+    assert.equal(b.amountCents, cents, slug);
+    const expectedFiles = templates.reduce((n, t) => n + t.files.length, 0);
+    assert.equal(b.files.length, expectedFiles, slug);
+
+    const s = paidSession(slug);
     sessions.set(s.id, s);
     await webhook.POST(signedEvent('checkout.session.completed', s));
-    assert.equal(orders.get(s.id).files.length, expectedFiles);
+    assert.equal(orders.get(s.id).files.length, expectedFiles, slug);
     const data = await (await getOrder(s.id)).json();
-    assert.equal(data.links.length, expectedFiles);
+    assert.equal(data.links.length, expectedFiles, slug);
     const slugs = new Set(data.links.map((l) => readToken(tokenFromUrl(l.url), secret()).key.split('/')[0]));
-    assert.deepEqual([...slugs].sort(), measurement.map((t) => t.slug).sort());
-  } finally {
-    for (const { t, fileReady, files } of saved) Object.assign(t, { fileReady, files });
+    assert.deepEqual([...slugs].sort(), templates.map((t) => t.slug).sort(), slug);
   }
 });

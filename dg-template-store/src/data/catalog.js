@@ -350,27 +350,39 @@ export const TEMPLATES = [
   // ── Measurement ────────────────────────────────────────────────────────────
   t({
     slug: 'exec-powerbi-dashboard',
-    name: 'Executive Governance Dashboard (Power BI)',
+    name: 'Executive Governance Dashboard Kit (Power BI)',
     tier: 'measurement',
-    price: 199,
+    price: 149,
     source: 'chat',
-    format: 'PBIX + XLSX',
-    pages: 5,
+    format: 'XLSX + PDF + DAX + JSON',
+    pages: 12,
+    fileReady: true,
+    length: '12-page build guide, 8-table sample data workbook, 27 DAX measures and a theme',
     summary:
-      'A Power BI report that shows leadership program health at a glance: adoption, quality trends, issues and maturity.',
-    audience: 'CDO, governance council, program sponsor',
+      'Build a five-page Power BI dashboard for leadership in two to three hours: program health, quality trends, issues and maturity. You build the report in Power BI Desktop; no .pbix file is included.',
+    audience: 'CDO, governance council, program sponsor, BI developer',
     outline: [
       'Program health overview page',
       'Data quality trend by domain',
       'Issue backlog and time to resolve',
       'Stewardship coverage and glossary growth',
       'Maturity score over time',
-      'Sample data workbook and connection guide',
+      'Sample data model, ready-made measures, theme and step-by-step build guide',
     ],
-    includes: ['Power BI report (PBIX)', 'Sample data model (XLSX)', 'Setup guide (PDF)'],
-    // Not for sale yet. A build kit exists in files/exec-powerbi-dashboard/ (sample data model,
-    // DAX measures, theme, 12-page setup guide) but no PBIX: Uday to build it or relist as a kit.
+    includes: [
+      'Build guide with a picture of every page (PDF, 12 pages)',
+      'Sample data model with 8 tables (XLSX)',
+      '27 ready-made DAX measures (TXT)',
+      'Report theme (JSON)',
+    ],
+    // A build kit, not a finished report: Power BI Desktop is needed to make the .pbix.
     previews: ['Program health page', 'Data quality page', 'Issues page'],
+    files: [
+      { name: 'Executive-Dashboard-Setup-Guide.pdf', label: 'Build guide', size: '12 pages' },
+      { name: 'Executive-Dashboard-Sample-Data.xlsx', label: 'Sample data model', size: '8 tables' },
+      { name: 'Executive-Dashboard-DAX-Measures.txt', label: 'DAX measures', size: '27 measures' },
+      { name: 'Executive-Dashboard-Theme.json', label: 'Power BI theme', size: '1 file' },
+    ],
   }),
   t({
     slug: 'kpi-library',

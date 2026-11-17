@@ -109,7 +109,7 @@ export default function Home() {
           <dl className="faq">
             <div>
               <dt>What do I get?</dt>
-              <dd>Editable Word, Excel, PowerPoint or Power BI files, depending on the template. Each listing shows the exact format.</dd>
+              <dd>Editable Word, Excel and PowerPoint files, plus a Power BI build kit for the dashboard. Each listing shows the exact format.</dd>
             </div>
             <div>
               <dt>Can I change them for my company?</dt>
